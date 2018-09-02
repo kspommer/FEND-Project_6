@@ -5,7 +5,7 @@ import * as BooksAPI from './BooksAPI'
 // import style sheet
 import './App.css'
 // import components
-import Books from './Books'
+import BookList from './Books'
 
 const books = [
   {
@@ -22,7 +22,7 @@ const books = [
   }
 ]  
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
   //state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -30,8 +30,8 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-   //books: []
-    // deleted line here in original App.js
+    //books: []
+    //showSearchPage: false
   //}
 
   // make call to API  
@@ -41,13 +41,16 @@ class BooksApp extends React.Component {
    // })
   //}
 
+// Display books; pass books array to Books Component 
   render() {
     return (
+      <div className="app">
         <div>
-          // Display books 
-          // Pass over books array
-          <Books books={books}/>
+          <BookList books={books}/>
         </div>  
+      </div>  
     )
   }
 }
+
+export default BooksApp
