@@ -4,26 +4,24 @@
 import React, {Component} from 'react'
 
 // Book component
-class Books extends Component {
+class BookList extends Component {
 
 	// render a book (cover image, title, author)
 	// need to add book-changer div / component 
 	// <div key={book.id}, className="book-shelf-changer">ADD BOOK SHELF CHANGER COMPONENT HERE</div>	
+	// map over each book and display certain fields
 	render() {
-		console.log('Props, this.props') // TEST
 		return ( 
 			<div className='book'>
-			// map over each book and display certain fields
-				{books.map (book => (
-					<div key={book.title} className='book-title'>{book.title}</div>,
-					<div key={book.title} className='book-authors'>{book.authors}</div>				
+				{this.props.books.map(book => (
+					<li key={book.title} className='book-title'>{book.title}</li> 		
 				))}
 			</div>	
 		)
 	}			
 }
 
-export default Books
+export default BookList
 
 
 
