@@ -6,6 +6,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 // import components
 import BookList from './Books'
+import Shelves from './Shelf'
 
 class BooksApp extends Component {
   state = {
@@ -41,6 +42,18 @@ class BooksApp extends Component {
             <div>
               <div className="bookshelf">
                 <h2 className="bookshelf-title">Currently Reading</h2>
+                <div className="bookshelf-books">
+                  <BookList books={this.state.books}/>
+                </div>
+              </div>
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Want to Read</h2>
+                <div className="bookshelf-books">
+                  <BookList books={this.state.books}/>
+                </div>
+              </div>
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Read</h2>
                 <div className="bookshelf-books">
                   <BookList books={this.state.books}/>
                 </div>
