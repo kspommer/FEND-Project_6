@@ -1,4 +1,4 @@
-// Display book sub-image to page
+// Display book image, title, author to page
 
 // import React 
 import React, {Component} from 'react'
@@ -14,7 +14,7 @@ class BookList extends Component {
 					<li>
 						<div className='book'>
 							<div className="book-top">
-								<div key={book.id} className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("URL")' }}></div>,							
+								<div key={book.id} className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})`}}></div>							
 			                    <div className="book-shelf-changer">
 			                      <select>
 			                        <option value="move" disabled>Move to...</option>
