@@ -2,30 +2,35 @@
 
 // import React 
 import React, {Component} from 'react'
+// import components
+import BookList from './Books'
 
 // Shelf component
-function Shelves(props) {
-// map over each book and display on a particular shelf
-	return (
-	{props.books.map(book => (
-		<div>
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">one</div>
-			</div>	
+class Shelves extends Component {
 
-			<div className="bookshelf">
-              <h2 className="bookshelf-title">Want to Read</h2>
-              <div className="bookshelf-books">two</div>
-            </div>
+  getShelf(book) {
+    let shelf = ''
 
-            
-            <div className="bookshelf">
-              <h2 className="bookshelf-title">Read</h2>
-              <div className="bookshelf-books">three</div> 
-            </div>
-        </div>
-    ))}
+    (this.book.readingModes.shelf === 'currentlyReading' ? shelf="Currently Reading" : 
+      (this.book.readingModes.shelf === 'wantToRead' ? shelf="Want to Read" : 
+        (this.book.readingModes.shelf === 'read' ? shelf="Read" : null)))
+  }
+
+// map over each book and figure out what shelf they are on
+  render() {
+    return (
+      <div className="need to add here"> 
+        {this.props.books.map(book => (
+          <div key={book.id} className="bookshelf"> 
+            <h2 className="bookshelf-title">getShelf(book)</h2>
+            <div className="bookshelf-books">
+              <BookList/>
+            </div>   
+          </div>
+        ))} 
+      </div>     
+    )
+  }      
 }
 
 export default Shelves
