@@ -25,7 +25,7 @@ class BooksApp extends Component {
   componentDidMount(){
     BooksAPI.getAll().then((books => {
         this.setState({books})
-        console.log(books)
+        console.log(books) // FOR TESTING 
     }))
   }
 
@@ -39,28 +39,8 @@ class BooksApp extends Component {
           </div> 
 
           <div className="list-books-content">
-            <div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
-                <div className="bookshelf-books">
-                  <BookList books={this.state.books}/>
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want to Read</h2>
-                <div className="bookshelf-books">
-                  <BookList books={this.state.books}/>
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Read</h2>
-                <div className="bookshelf-books">
-                  <BookList books={this.state.books}/>
-                </div>
-              </div>
-            </div>        
+              <Shelves books={this.state.books}/>
           </div>  
-
         </div>  
       </div>  
     )
