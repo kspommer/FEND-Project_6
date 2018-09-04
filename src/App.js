@@ -5,7 +5,7 @@ import * as BooksAPI from './BooksAPI'
 // import style sheet
 import './App.css'
 // import components
-import BookList from './Books'
+import Book from './Books'
 import Shelves from './Shelf'
 
 class BooksApp extends Component {
@@ -29,7 +29,9 @@ class BooksApp extends Component {
     }))
   }
 
-// Display books; pass books array to Books Component 
+// Display books; pass books array to Shelf component 
+// Shelf component figures out what shelf books should be on
+// Shelf components calls Book component to display 
   render() {
     return (
       <div className="app">
@@ -37,7 +39,6 @@ class BooksApp extends Component {
           <div className="list-books-title">
             <h1>MyReads</h1>
           </div> 
-
           <div className="list-books-content">
               <Shelves books={this.state.books}/>
           </div>  
