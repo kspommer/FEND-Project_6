@@ -19,20 +19,19 @@ class Shelves extends Component {
     return ( 
       <div>
         // filter the list of books three times and render list items
-        {arrayCurrentlyReading.map((book) => (        
+        arrayCurrentlyReading.map((book) => (        
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   <li>
-                    <Book book={this.state.book}/> 
+                    <Book/> 
                   </li>
                 </ol>      
               </div>
           </div>  
-        ))}  
-
-        {arrayWantToRead.map((book) => (        
+        ))  
+        arrayWantToRead.map((book) => (        
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
@@ -43,9 +42,8 @@ class Shelves extends Component {
                 </ol>      
               </div>
           </div>
-        ))} 
-
-        {arrayRead.map((book) => (        
+        )) 
+        arrayRead.map((book) => (        
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
@@ -56,12 +54,10 @@ class Shelves extends Component {
                 </ol>      
               </div>
           </div>  
-        ))}
+        ))
       </div>  
     )  
   }
 }        
 
 export default Shelves
-
-{/*Filter reference:  https://stackoverflow.com/questions/42894774/react-filter-method-without-mutating-state*/}
