@@ -5,7 +5,7 @@ import * as BooksAPI from './BooksAPI'
 // import style sheet
 import './App.css'
 // import components
-import Book from './Books'
+import Books from './Books'
 import Shelves from './Shelf'
 
 class BooksApp extends Component {
@@ -25,7 +25,7 @@ class BooksApp extends Component {
   componentDidMount(){
     BooksAPI.getAll().then((books => {
         this.setState({books})
-        console.log(books) // FOR TESTING 
+        console.log({books}) // TESTING
     }))
   }
 
