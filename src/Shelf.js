@@ -8,9 +8,7 @@ import Books from './Books'
 
 // Shelf component
 class Shelves extends Component {
-  // initialize state?
-  books: []
-  // pass the books array from API call from App.js
+  // do not need to initialize state; get books array from app.js
 
   //filter books by shelf from books array
   //arrayCurrentlyReading = this.state.books.filter(book => (book.shelf !== "currentlyReading"))
@@ -19,49 +17,27 @@ class Shelves extends Component {
 
   // map over each book for that shelf to display required books
 
-  render() {
-    console.log(this.state.books) // TESTING TO MAKE SURE RECEIVE DATA
+  //componentDidMount(){
+  
+    //console.log(this.props.books)  // TESTING
+  //}
 
+  render() {
     return ( 
       <div>
-        this.state.books.map((book) => (        
+        {this.props.books && this.props.books.map((book) => (        
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   <li>
-                    <Books key={book.title} title={book.title} authors={book.authors} coverImage={book.imageLinks.thumbnail} imageLink={this.imageLinks}/>
-                    // books={this.props.books}
+                    <Books key={book.title} title={book.title} authors={book.authors} 
+                    coverImage={book.imageLinks.thumbnail} imageLinks={book.imageLinks}/>
                   </li>
                 </ol>      
               </div>
           </div>  
-        ))  
-
-       {/*} arrayWantToRead.map((book) => (        
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book book={this.state.book}/> 
-                  </li>
-                </ol>      
-              </div>
-          </div>
-        )) 
-        arrayRead.map((book) => (        
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
-                  <li>
-                    <Book book={this.state.book}/> 
-                  </li>
-                </ol>      
-              </div>
-          </div>  
-        )) */}
+        ))}
       </div>  
     )  
   }
