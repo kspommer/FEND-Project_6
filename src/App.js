@@ -5,7 +5,6 @@ import * as BooksAPI from './BooksAPI'
 // import style sheet
 import './App.css'
 // import components
-import Books from './Books'
 import Shelves from './Shelf'
 
 class BooksApp extends Component {
@@ -21,17 +20,29 @@ class BooksApp extends Component {
   }
 
   // make call to API - 
-  // componentWillMount causes asynch error
+  // componentWillMount caused asynch error
   componentDidMount(){
     BooksAPI.getAll().then((books => {
-        this.setState({books})
-        console.log({books}) // TESTING
+      this.setState({books})
     }))
   }
 
+  // tried another functional to insert error to no avail
+  //async componentDidMount(){
+    //try {
+      //const books = await BooksAPI.getAll();
+      //if (books) {
+        //this.setState({book})
+      //}  
+    //}
+    //catch(error) {
+      //console.log(error)
+    //}
+  //}
+
 // Display books; pass books array to Shelf component 
 // Shelf component figures out what shelf books should be on
-// Shelf components calls Book component to display 
+// Shelf components calls Book component to display book
   render() {
     return (
       <div className="app">
