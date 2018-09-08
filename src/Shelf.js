@@ -1,37 +1,44 @@
 // Display three shelves
-// Makes call to Book component to render each book on its specific shelf
+// Makes call to Books component to render each book on its specific shelf
 
 // import React 
 import React, {Component} from 'react'
 // import components
-import Book from './Books'
-import App from './App'
+import Books from './Books'
 
 // Shelf component
 class Shelves extends Component {
-  // filter by shelf to create three unique book arrays
-  arrayCurrentlyReading = this.state.books.filter(book => (book.readingModes.shelf === "currentlyReading"))
-  arrayWantToRead = this.state.books.filter(book => (book.readingModes.shelf === "wantToRead"))
-  arrayRead = this.state.books.filter(book => (book.readingModes.shelf === "read"))
+  // initialize state?
+  books: []
+  // pass the books array from API call from App.js
 
-  // map over each book and figure out what shelf they are on
+  //filter books by shelf from books array
+  //arrayCurrentlyReading = this.state.books.filter(book => (book.shelf !== "currentlyReading"))
+  //arrayWantToRead = this.state.books.filter(book => (book.shelf !== "wantToRead"))
+  //arrayRead = this.state.books.filter(book => (book.shelf !== "read"))
+
+  // map over each book for that shelf to display required books
+
   render() {
+    console.log(this.state.books) // TESTING TO MAKE SURE RECEIVE DATA
+
     return ( 
       <div>
-        // filter the list of books three times and render list items
-        arrayCurrentlyReading.map((book) => (        
+        this.state.books.map((book) => (        
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
                   <li>
-                    <Book/> 
+                    <Books key={book.title} title={book.title} authors={book.authors} coverImage={book.imageLinks.thumbnail} imageLink={this.imageLinks}/>
+                    // books={this.props.books}
                   </li>
                 </ol>      
               </div>
           </div>  
         ))  
-        arrayWantToRead.map((book) => (        
+
+       {/*} arrayWantToRead.map((book) => (        
           <div className="bookshelf">
             <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
@@ -54,7 +61,7 @@ class Shelves extends Component {
                 </ol>      
               </div>
           </div>  
-        ))
+        )) */}
       </div>  
     )  
   }
