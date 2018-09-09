@@ -18,7 +18,7 @@ class BooksApp extends Component {
     books: [],
     arrayCurrentlyReading: [],
     arrayWantToRead: [],
-    arrayRead: []
+    arrayRead: [],
     //showSearchPage: false
   }
 
@@ -27,11 +27,18 @@ class BooksApp extends Component {
     BooksAPI.getAll().then((books => {
       const arrayCurrentlyReading = books.filter(book => (book.shelf === "currentlyReading"))
       const arrayWantToRead = books.filter(book => (book.shelf === "wantToRead"))
-      const arrayRead = books.filter(book => (book.shelf === "read"))
-      this.setState({books, arrayCurrentlyReading, arrayWantToRead, arrayRead})
+      const arrayRead = books.filter(book => (book.shelf === "read"))      
+
+      const shelfTitle1 = 'Currently Reading'
+      const shelfTitle2 = 'Want To Read'
+      const shelfTitle3 = "Read" 
+      
+      this.setState({books, arrayCurrentlyReading, arrayWantToRead, arrayRead, shelfTitle1, shelfTitle2, shelfTitle3})
+      
       console.log({arrayCurrentlyReading}) /// TESTING
-      console.log({arrayWantToRead}) /// TESTING
-      console.log({arrayRead}) /// TESTING
+      console.log(shelfTitle1)
+      //console.log({arrayWantToRead}) /// TESTING
+      //console.log({arrayRead}) /// TESTING
     }))
   }
 
@@ -77,10 +84,9 @@ class BooksApp extends Component {
             <h1>MyReads</h1>
           </div> 
           <div className="list-books-content">
-            <Shelves books={this.state.arrayCurrentlyReading}/>
-            <Shelves books={this.state.arrayWantToRead}/>
-            <Shelves books={this.state.arrayRead}/>
-            />
+            <Shelves books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
+            <Shelves books={this.state.arrayWantToRead} shelfTitle={this.state.shelfTitle2}/>
+            <Shelves books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
           </div>  
         </div>  
       </div>  
