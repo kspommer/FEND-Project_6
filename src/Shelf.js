@@ -24,7 +24,6 @@ class Shelves extends Component {
     //}))
  //}
 
-
   // on load, call filter function by shelf
   // check that books array is available
   // map over each book for that shelf to display required books
@@ -32,7 +31,7 @@ class Shelves extends Component {
     return ( 
       <div>          
         <div className="bookshelf">
-          <h2 className="bookshelf-title">Currently Reading</h2>
+          <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {this.props.books && this.props.books.map(book => ( 
@@ -43,8 +42,8 @@ class Shelves extends Component {
                 ))}  
               </ol>      
             </div>
-        </div> 
-      </div>  
+        </div>   
+      </div>
     )
   }
 }    
