@@ -30,20 +30,20 @@ class Shelves extends Component {
   // map over each book for that shelf to display required books
   render() { 
     return ( 
-      <div>
-        {this.props.books && this.props.books.map(book => (      
-          <div className="bookshelf">
-            <h2 className="bookshelf-title">Currently Reading</h2>
-              <div className="bookshelf-books">
-                <ol className="books-grid">
+      <div>          
+        <div className="bookshelf">
+          <h2 className="bookshelf-title">Currently Reading</h2>
+            <div className="bookshelf-books">
+              <ol className="books-grid">
+                {this.props.books && this.props.books.map(book => ( 
                   <li>
                     <Books key={book.title} title={book.title} authors={book.authors} 
                     coverImage={book.imageLinks.thumbnail} imageLinks={book.imageLinks}/>
                   </li>
-                </ol>      
-              </div>
-          </div>  
-        ))}
+                ))}  
+              </ol>      
+            </div>
+        </div> 
       </div>  
     )
   }
