@@ -15,19 +15,45 @@ class BooksApp extends Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
-    books: []
+    books: [],
+    arrayCurrentlyReading: [],
+    arrayWantToRead: [],
+    arrayRead: []
     //showSearchPage: false
   }
 
-  // make call to API - 
-  // componentWillMount caused asynch error
+  // make call to API - use of componentWillMount caused asynch error
   componentDidMount(){
     BooksAPI.getAll().then((books => {
-      this.setState({books})
+      const arrayCurrentlyReading = books.filter(book => (book.shelf === "currentlyReading"))
+      const arrayWantToRead = books.filter(book => (book.shelf === "wantToRead"))
+      const arrayRead = books.filter(book => (book.shelf === "read"))
+      this.setState({books, arrayCurrentlyReading, arrayWantToRead, arrayRead})
+      console.log({arrayCurrentlyReading}) /// TESTING
+      console.log({arrayWantToRead}) /// TESTING
+      console.log({arrayRead}) /// TESTING
     }))
   }
 
-  // tried another functional to insert error to no avail
+  //filterCurrentlyReadingBooks = (book) => {
+    //this.setState((state) => ({
+      //currentlyReadingBooks: state.books.filter((book) => book.shelf === "currentlyReading")
+    //}))
+  //}
+
+  //filterWantToReadBooks = (book) => {
+    //this.setState((state) => ({
+      //wantToReadBooks: state.books.filter((book) => book.shelf === "wantToRead")
+    //}))
+  //}
+
+  //filterReadBooks = (book) => {
+    //this.setState((state) => ({
+      //readBooks: state.books.filter((book) => book.shelf === "read")
+    //}))
+  //}
+
+  // tried another API function, managing error handling with no success
   //async componentDidMount(){
     //try {
       //const books = await BooksAPI.getAll();
@@ -35,13 +61,13 @@ class BooksApp extends Component {
         //this.setState({book})
       //}  
     //}
-    //catch(error) {
+    //catch(error) {  // Issue is in catch
       //console.log(error)
     //}
   //}
 
 // Display books; pass books array to Shelf component 
-// Shelf component figures out what shelf books should be on
+// On load, Shelf component calls shelf filter functions above
 // Shelf components calls Book component to display book
   render() {
     return (
@@ -51,7 +77,10 @@ class BooksApp extends Component {
             <h1>MyReads</h1>
           </div> 
           <div className="list-books-content">
-              <Shelves books={this.state.books}/>
+            <Shelves books={this.state.arrayCurrentlyReading}/>
+            <Shelves books={this.state.arrayWantToRead}/>
+            <Shelves books={this.state.arrayRead}/>
+            />
           </div>  
         </div>  
       </div>  
