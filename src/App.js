@@ -19,7 +19,7 @@ class BooksApp extends Component {
     arrayCurrentlyReading: [],
     arrayWantToRead: [],
     arrayRead: [],
-    //showSearchPage: false
+    showSearchPage: false
   }
 
   // make call to API - use of componentWillMount caused asynch error
