@@ -10,20 +10,6 @@ import Books from './Books'
 class Shelves extends Component {
   // do not need to initialize state; get books array from app.js
 
-  // MOVED FILTERING TO APP.JS
-  // initialize filtered arrays
-  //state = {
-    //currentlyReading: [],
-    //wantToRead: [],
-    //read: [],
-  //}
-
-  //componentDidMount() {
-    //filterCurrentlyReadingBooks(books).then((books => {
-      //this.setState({currentReadingBooks})
-    //}))
- //}
-
   // on load, call filter function by shelf
   // check that books array is available
   // map over each book for that shelf to display required books
@@ -44,13 +30,7 @@ class Shelves extends Component {
                 </ol>      
               </div>
           </div>   
-        </div>
-    
-        <div>
-          <div className="open-search">
-            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-          </div>
-        </div>
+        </div> 
       </div>  
     )
   }
