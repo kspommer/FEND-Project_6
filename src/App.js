@@ -42,53 +42,44 @@ class BooksApp extends Component {
     }))
   }
 
-  //filterCurrentlyReadingBooks = (book) => {
-    //this.setState((state) => ({
-      //currentlyReadingBooks: state.books.filter((book) => book.shelf === "currentlyReading")
-    //}))
-  //}
-
-  //filterWantToReadBooks = (book) => {
-    //this.setState((state) => ({
-      //wantToReadBooks: state.books.filter((book) => book.shelf === "wantToRead")
-    //}))
-  //}
-
-  //filterReadBooks = (book) => {
-    //this.setState((state) => ({
-      //readBooks: state.books.filter((book) => book.shelf === "read")
-    //}))
-  //}
-
-  // tried another API function, managing error handling with no success
-  //async componentDidMount(){
-    //try {
-      //const books = await BooksAPI.getAll();
-      //if (books) {
-        //this.setState({book})
-      //}  
-    //}
-    //catch(error) {  // Issue is in catch
-      //console.log(error)
-    //}
-  //}
-
 // Display books; pass books array to Shelf component 
 // On load, Shelf component calls shelf filter functions above
 // Shelf components calls Book component to display book
   render() {
     return (
       <div className="app">
-        <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
+        {this.state.showSearchPage ? (
+          <div className="search-books">
+            <div className="search-books-bar">
+              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+              <div className="search-books-input-wrapper">
+                {/*
+                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
+                  You can find these search terms here:
+                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
+
+                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
+                  you don't find a specific author or title. Every search is limited by search terms.
+                */}
+                <input type="text" placeholder="Search by title or author"/>
+              </div>
+            </div>
+            <div className="search-books-results">
+              <ol className="books-grid"></ol>
+            </div>
+          </div>
+        ) : (
+          <div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div> 
+            <div className="list-books-content">
+              <Shelves books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
+              <Shelves books={this.state.arrayWantToRead} shelfTitle={this.state.shelfTitle2}/>
+              <Shelves books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
+            </div>  
           </div> 
-          <div className="list-books-content">
-            <Shelves books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
-            <Shelves books={this.state.arrayWantToRead} shelfTitle={this.state.shelfTitle2}/>
-            <Shelves books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
-          </div>  
-        </div>  
+        )}    
       </div>  
     )
   }
