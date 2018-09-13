@@ -3,8 +3,10 @@
 // import React 
 import React, {Component} from 'react'
 
+// method to update books
 // Book component  - displays thumbnail image, title, authors(NEED WORK), picklist
 class Books extends Component {
+
 	// render each book and display certain fields (cover image, title, author)
 	render() {
 		return (
@@ -17,10 +19,10 @@ class Books extends Component {
 		            <div className="book-shelf-changer">
 		              <select>
 		                <option value="move" disabled>Move to...</option>
-		                <option value="currentlyReading">Currently Reading</option>
-		                <option value="wantToRead">Want to Read</option>
-		                <option value="read">Read</option>
-		                <option value="none">None</option>
+		                <option value="currentlyReading" onClick={() => onUpdateShelf(book, "currentlyReading")}>Currently Reading</option>
+		                <option value="wantToRead" onClick={() => onUpdateShelf(book, "wantToRead")}>Want to Read</option>
+		                <option value="read" onClick={() => onUpdateShelf(book, "read")}>Read</option>
+		                <option value="none" onClick={() => onUpdateShelf(book, "none")}>Read</option>>None</option>
 		              </select>
 		            </div>
 		    	</div>
@@ -30,5 +32,5 @@ class Books extends Component {
 		)
 	}
 }     				
-      
+     
 export default Books
