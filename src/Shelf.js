@@ -23,7 +23,7 @@ class Shelves extends Component {
                 <ol className="books-grid">
                   {this.props.books && this.props.books.map(book => ( 
                     <li>
-                      <Books key={book.title} title={book.title} authors={book.authors} 
+                      <Books key={book.title} onUpdateShelf={this.shelfChanger} title={book.title} authors={book.authors} 
                       coverImage={book.imageLinks.thumbnail} imageLinks={book.imageLinks}/>
                     </li>
                   ))}  
