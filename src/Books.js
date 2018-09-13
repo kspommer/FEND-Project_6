@@ -22,7 +22,7 @@ class Books extends Component {
 		                <option value="currentlyReading" onClick={() => onUpdateShelf(book, "currentlyReading")}>Currently Reading</option>
 		                <option value="wantToRead" onClick={() => onUpdateShelf(book, "wantToRead")}>Want to Read</option>
 		                <option value="read" onClick={() => onUpdateShelf(book, "read")}>Read</option>
-		                <option value="none" onClick={() => onUpdateShelf(book, "none")}>Read</option>>None</option>
+		                <option value="none" onClick={() => onUpdateShelf(book, "none")}>None</option>
 		              </select>
 		            </div>
 		    	</div>
