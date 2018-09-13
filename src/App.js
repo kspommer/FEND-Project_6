@@ -19,12 +19,32 @@ class BooksApp extends Component {
     arrayCurrentlyReading: [],
     arrayWantToRead: [],
     arrayRead: [],
-    showSearchPage: false
+    showSearchPage: false,
+    booksWithoutUpdated: []
   }
+
+  // method to support shelf changes
+  shelfChanger = (book, shelf) => {
+    this.setState((state) => ({
+        // call API to update book shelf
+        // returns an object
+        updatedBookObject = BooksAPI.update(book, shelf)
+        // console.log({updatedBookObject}) // REMOVE - FOR TESTING  - WHY DOESN'T THIS WORK?  
+        // update array for the changed book
+        // filter out the updated book
+        booksWithoutUpdated = books.filter((book) => (book.title !== updatedBookObject.title));
+        console.log(booksWithoutUpdated) // REMOVE FOR TESTING
+        // add updatedBookObject to array
+        books = booksWithoutUpdated.push(updatedBookObject)
+        //reset state of books
+        books: state.books
+      }))
+    }
 
   // make call to API - use of componentWillMount caused asynch error
   componentDidMount(){
     BooksAPI.getAll().then((books => {
+
       const arrayCurrentlyReading = books.filter(book => (book.shelf === "currentlyReading"))
       const arrayWantToRead = books.filter(book => (book.shelf === "wantToRead"))
       const arrayRead = books.filter(book => (book.shelf === "read"))      
@@ -36,9 +56,8 @@ class BooksApp extends Component {
       this.setState({books, arrayCurrentlyReading, arrayWantToRead, arrayRead, shelfTitle1, shelfTitle2, shelfTitle3})
       
       console.log({arrayCurrentlyReading}) /// TESTING
-      console.log(shelfTitle1)
-      //console.log({arrayWantToRead}) /// TESTING
-      //console.log({arrayRead}) /// TESTING
+      console.log({arrayWantToRead}) /// TESTING
+      console.log({arrayRead}) /// TESTING
     }))
   }
 
@@ -74,9 +93,9 @@ class BooksApp extends Component {
               <h1>MyReads</h1>
             </div> 
             <div className="list-books-content">
-              <Shelves books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
-              <Shelves books={this.state.arrayWantToRead} shelfTitle={this.state.shelfTitle2}/>
-              <Shelves books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
+              <Shelves onUpdateShelf={this.shelfChanger} books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
+              <Shelves onUpdateShelf={this.shelfChanger} books={this.state.arrayToRead} shelfTitle={this.state.shelfTitle2}/>
+              <Shelves onUpdateShelf={this.shelfChanger} books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
             </div>  
           </div> 
         )}  
