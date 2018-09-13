@@ -25,20 +25,20 @@ class BooksApp extends Component {
 
   // method to support shelf changes
   shelfChanger = (book, shelf) => {
-    this.setState((state) => ({
+    //this.setState((state) => ({
         // call API to update book shelf
-        // returns an object
+        // returns an updated book object
         updatedBookObject = BooksAPI.update(book, shelf)
-        // console.log({updatedBookObject}) // REMOVE - FOR TESTING  - WHY DOESN'T THIS WORK?  
+        console.log({updatedBookObject}) // REMOVE - FOR TESTING  - WHY DOESN'T THIS WORK?!*!  
         // update array for the changed book
         // filter out the updated book
         booksWithoutUpdated = books.filter((book) => (book.title !== updatedBookObject.title));
-        console.log(booksWithoutUpdated) // REMOVE FOR TESTING
+        //console.log(booksWithoutUpdated) // REMOVE FOR TESTING
         // add updatedBookObject to array
         books = booksWithoutUpdated.push(updatedBookObject)
         //reset state of books
         books: state.books
-      }))
+      //}))
     }
 
   // make call to API - use of componentWillMount caused asynch error
