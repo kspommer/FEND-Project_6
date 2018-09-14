@@ -12,10 +12,10 @@ class Books extends Component {
 		return (
 			<div className="book">
 				<div className="book-top">
-					<div className="book-cover" style={{ width: 128, height: 193,
-						backgroundImage: this.props.imageLinks && this.props.coverImage ?
-		      			`url(${this.props.coverImage})`:
-		      			"url('./img/not-available.jpg')"}}>
+					<div key={this.props.title} className="book-cover" style={{ width: 128, height: 193,
+						backgroundImage: this.props.book.imageLinks ?
+		      			`url(${this.props.book.imageLinks.smallThumbnail})`:
+		      			'url("./img/not-available.jpg")'}}>
 		      		</div>						
 		            <div className="book-shelf-changer">
 		              <select onChange={(event) => this.props.shelfChanger(this.props.book, event.target.value)} value={"currentlyReading"}>
