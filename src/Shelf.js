@@ -10,23 +10,35 @@ import Books from './Books'
 class Shelf extends Component {
   // do not need to initialize state; get books array from app.js
 
-  // on load, call filter function by shelf
+  //state = {
+    //arrayCurrentlyReading: [],
+    //arrayWantToRead: [],
+    //arrayRead: [],
+  //}
+
+  // render will call this filter function 
+  //filterBooks = (books) => {
+    //arrayCurrentlyReading = this.props.books.filter(book => (this.props.book.shelf === "currentlyReading"))
+    //arrayWantToRead = this.props.books.filter(book => (this.props.book.shelf === "wantToRead"))
+    //arrayRead = this.props.books.filter(book => (this.props.book.shelf === "read"))      
+  //}
+
   // check that books array is available
   // map over each book for that shelf to display required books
   render() { 
+    //console.log({books}) // TESTING
     return ( 
       <div>
         <div>          
           <div className="bookshelf">
-            <h2 className="bookshelf-title">{this.props.shelfTitle}</h2>
+            <h2 className="bookshelf-title">"Currently Reading"</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books && this.props.books.map(book => ( 
-                    <li>
-                      <Books key={book.title} onUpdateShelf={this.props.shelfChanger} title={book.title} authors={book.authors} 
-                      coverImage={book.imageLinks.thumbnail} imageLinks={book.imageLinks}/>
+                  {this.props.books && this.props.books.filter(book => (book.shelf === "currentlyReading"))}.map(book => ( 
+                    <li key={this.props.title}>
+                      <Books book={this.props.book} changeShelf={this.props.changeShelf}/>
                     </li>
-                  ))}  
+                  ))} 
                 </ol>      
               </div>
           </div>   
