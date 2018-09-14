@@ -17,7 +17,7 @@ class Books extends Component {
 		      			`url(${this.props.coverImage})`:
 		      			"url('./img/not-available.jpg')"}}></div>						
 		            <div className="book-shelf-changer">
-		              <select onClick={() => onUpdateShelf(book, {shelf})}>
+		              <select onChange={(event) => this.props.changeShelf(book, event.target.value)} value={book.shelf}>
 		                <option value="move" disabled>Move to...</option>
 		                <option value="currentlyReading">Currently Reading</option>
 		                <option value="wantToRead">Want to Read</option>
@@ -31,6 +31,6 @@ class Books extends Component {
 			</div>
 		)
 	}
-}     				
-     
+}     			
+
 export default Books
