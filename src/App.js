@@ -16,52 +16,28 @@ class BooksApp extends Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books: [],
-    arrayCurrentlyReading: [],
-    arrayWantToRead: [],
-    arrayRead: [],
-    showSearchPage: false,
-    booksWithoutUpdated: []
+    showSearchPage: false
   }
 
-  // method to support shelf changes
-  shelfChanger = (book, shelf) => {
-        // get the book's unique identifier 
-        const bookId = book.id
-        console.log(bookId) // WHY DOESN'T THIS WORK? 
-        // call API to update the book's shelf (returns an updated book object)
-        BooksAPI.update(book, shelf) 
-        // update array for the changed book
-          // filter out the book
-        booksWithoutUpdated = books.filter((book) => (book.id !== bookId));
-        //console.log(booksWithoutUpdated) // REMOVE FOR TESTING
-          // add book (with updated shelf) to array
-        books = booksWithoutUpdated.push(book)
-        //reset state of books array
-        this.setState({book})
-    }
-
-  // make call to API - use of componentWillMount caused asynch error
-  componentDidMount(){
+  // make call to API on component mount
+  componentDidMount() {
     BooksAPI.getAll().then((books => {
+      this.setState({books})
+      console.log({books})  // REMOVE - TESTING
+    }))
+  }
 
-      const arrayCurrentlyReading = books.filter(book => (book.shelf === "currentlyReading"))
-      const arrayWantToRead = books.filter(book => (book.shelf === "wantToRead"))
-      const arrayRead = books.filter(book => (book.shelf === "read"))      
-
-      const shelfTitle1 = 'Currently Reading'
-      const shelfTitle2 = 'Want To Read'
-      const shelfTitle3 = "Read" 
-      
-      this.setState({books, arrayCurrentlyReading, arrayWantToRead, arrayRead, shelfTitle1, shelfTitle2, shelfTitle3})
-      
-      console.log({arrayCurrentlyReading}) /// TESTING
-      console.log({arrayWantToRead}) /// TESTING
-      console.log({arrayRead}) /// TESTING
+  // method to drive shelf changes (from picklist)
+  shelfChanger = (book, shelf) => {
+    // call API to update the book's shelf (returns an updated book object)
+    BooksAPI.update(book, shelf) 
+    // call API to get updated books and reset state
+    BooksAPI.getAll().then((books => {
+      this.setState({books})
     }))
   }
 
 // Display books; pass books array to Shelf component 
-// On load, Shelf component calls shelf filter functions above
 // Shelf components calls Book component to display book
   render() {
     return (
@@ -92,9 +68,7 @@ class BooksApp extends Component {
               <h1>MyReads</h1>
             </div> 
             <div className="list-books-content">
-              <Shelf onUpdateShelf={this.shelfChanger} books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
-              <Shelf onUpdateShelf={this.shelfChanger} books={this.state.arrayToRead} shelfTitle={this.state.shelfTitle2}/>
-              <Shelf onUpdateShelf={this.shelfChanger} books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
+              <Shelf shelfChanger={this.shelfChanger} books={this.state.books} shelfTitle={"Currently Reading"}/>
             </div>  
           </div> 
         )}  
