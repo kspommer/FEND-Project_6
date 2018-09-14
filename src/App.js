@@ -5,7 +5,7 @@ import * as BooksAPI from './BooksAPI'
 // import style sheet
 import './App.css'
 // import components
-import Shelves from './Shelf'
+import Shelf from './Shelf'
 
 class BooksApp extends Component {
   state = {
@@ -25,20 +25,19 @@ class BooksApp extends Component {
 
   // method to support shelf changes
   shelfChanger = (book, shelf) => {
-    //this.setState((state) => ({
-        // call API to update book shelf
-        // returns an updated book object
-        updatedBookObject = BooksAPI.update(book, shelf)
-        console.log({updatedBookObject}) // REMOVE - FOR TESTING  - WHY DOESN'T THIS WORK?!*!  
+        // get the book's unique identifier 
+        const bookId = book.id
+        console.log(bookId) // WHY DOESN'T THIS WORK? 
+        // call API to update the book's shelf (returns an updated book object)
+        BooksAPI.update(book, shelf) 
         // update array for the changed book
-        // filter out the updated book
-        booksWithoutUpdated = books.filter((book) => (book.title !== updatedBookObject.title));
+          // filter out the book
+        booksWithoutUpdated = books.filter((book) => (book.id !== bookId));
         //console.log(booksWithoutUpdated) // REMOVE FOR TESTING
-        // add updatedBookObject to array
-        books = booksWithoutUpdated.push(updatedBookObject)
-        //reset state of books
-        books: state.books
-      //}))
+          // add book (with updated shelf) to array
+        books = booksWithoutUpdated.push(book)
+        //reset state of books array
+        this.setState({book})
     }
 
   // make call to API - use of componentWillMount caused asynch error
@@ -93,9 +92,9 @@ class BooksApp extends Component {
               <h1>MyReads</h1>
             </div> 
             <div className="list-books-content">
-              <Shelves onUpdateShelf={this.shelfChanger} books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
-              <Shelves onUpdateShelf={this.shelfChanger} books={this.state.arrayToRead} shelfTitle={this.state.shelfTitle2}/>
-              <Shelves onUpdateShelf={this.shelfChanger} books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
+              <Shelf onUpdateShelf={this.shelfChanger} books={this.state.arrayCurrentlyReading} shelfTitle={this.state.shelfTitle1}/>
+              <Shelf onUpdateShelf={this.shelfChanger} books={this.state.arrayToRead} shelfTitle={this.state.shelfTitle2}/>
+              <Shelf onUpdateShelf={this.shelfChanger} books={this.state.arrayRead} shelfTitle={this.state.shelfTitle3}/>
             </div>  
           </div> 
         )}  
