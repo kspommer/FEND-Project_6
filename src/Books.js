@@ -17,12 +17,12 @@ class Books extends Component {
 		      			`url(${this.props.coverImage})`:
 		      			"url('./img/not-available.jpg')"}}></div>						
 		            <div className="book-shelf-changer">
-		              <select>
+		              <select onClick={() => onUpdateShelf(book, {shelf})}>
 		                <option value="move" disabled>Move to...</option>
-		                <option value="currentlyReading" onClick={() => onUpdateShelf(book, "currentlyReading")}>Currently Reading</option>
-		                <option value="wantToRead" onClick={() => onUpdateShelf(book, "wantToRead")}>Want to Read</option>
-		                <option value="read" onClick={() => onUpdateShelf(book, "read")}>Read</option>
-		                <option value="none" onClick={() => onUpdateShelf(book, "none")}>None</option>
+		                <option value="currentlyReading">Currently Reading</option>
+		                <option value="wantToRead">Want to Read</option>
+		                <option value="read">Read</option>
+		                <option value="none">None</option>
 		              </select>
 		            </div>
 		    	</div>
