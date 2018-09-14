@@ -10,14 +10,15 @@ class Books extends Component {
 	// render each book and display certain fields (cover image, title, author)
 	render() {
 		return (
-			<div key={this.props.title} className="book">
+			<div className="book">
 				<div className="book-top">
-					<div key={this.props.title} className="book-cover" style={{ width: 128, height: 193,
+					<div className="book-cover" style={{ width: 128, height: 193,
 						backgroundImage: this.props.imageLinks && this.props.coverImage ?
 		      			`url(${this.props.coverImage})`:
-		      			"url('./img/not-available.jpg')"}}></div>						
+		      			"url('./img/not-available.jpg')"}}>
+		      		</div>						
 		            <div className="book-shelf-changer">
-		              <select onChange={(event) => this.props.changeShelf(book, event.target.value)} value={book.shelf}>
+		              <select onChange={(event) => this.props.shelfChanger(this.props.book, event.target.value)} value={"currentlyReading"}>
 		                <option value="move" disabled>Move to...</option>
 		                <option value="currentlyReading">Currently Reading</option>
 		                <option value="wantToRead">Want to Read</option>
@@ -26,8 +27,8 @@ class Books extends Component {
 		              </select>
 		            </div>
 		    	</div>
-		    	<div className="book-title">{this.props.title}</div>
-		    	<div className="book-authors">{this.props.authors}</div>	
+		    	<div className="book-title">{this.props.book.title}</div>
+		    	<div className="book-authors">{this.props.book.authors}</div>	
 			</div>
 		)
 	}
