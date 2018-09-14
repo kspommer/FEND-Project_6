@@ -24,19 +24,19 @@ class Shelf extends Component {
   //}
 
   // check that books array is available
-  // map over each book for that shelf to display required books
+  // map over each book on that shelf to display required books
   render() { 
     //console.log({books}) // TESTING
     return ( 
       <div>
         <div>          
           <div className="bookshelf">
-            <h2 className="bookshelf-title">"Currently Reading"</h2>
+            <h2 className="bookshelf-title">Currently Reading</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books && this.props.books.filter(book => (book.shelf === "currentlyReading"))}.map(book => ( 
-                    <li key={this.props.title}>
-                      <Books book={this.props.book} changeShelf={this.props.changeShelf}/>
+                  {this.props.books && this.props.books.filter(book => (book.shelf === "currentlyReading")).map(book => ( 
+                    <li>
+                      <Books book={book} shelfChanger={this.props.shelfChanger}/>
                     </li>
                   ))} 
                 </ol>      
