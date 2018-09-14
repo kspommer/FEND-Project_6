@@ -7,7 +7,7 @@ import React, {Component} from 'react'
 import Books from './Books'
 
 // Shelf component
-class Shelves extends Component {
+class Shelf extends Component {
   // do not need to initialize state; get books array from app.js
 
   // on load, call filter function by shelf
@@ -23,7 +23,7 @@ class Shelves extends Component {
                 <ol className="books-grid">
                   {this.props.books && this.props.books.map(book => ( 
                     <li>
-                      <Books key={book.title} onUpdateShelf={this.shelfChanger} title={book.title} authors={book.authors} 
+                      <Books key={book.title} onUpdateShelf={this.props.shelfChanger} title={book.title} authors={book.authors} 
                       coverImage={book.imageLinks.thumbnail} imageLinks={book.imageLinks}/>
                     </li>
                   ))}  
@@ -36,4 +36,4 @@ class Shelves extends Component {
   }
 }    
 
-export default Shelves
+export default Shelf
