@@ -68,7 +68,24 @@ class BooksApp extends Component {
               <h1>MyReads</h1>
             </div> 
             <div className="list-books-content">
-              <Shelf shelfChanger={this.shelfChanger} books={this.state.books} shelfTitle={"Currently Reading"}/>
+              <Shelf 
+                shelfChanger={this.shelfChanger} 
+                books={this.state.books} 
+                shelfHeader="Currently Reading" 
+                shelfValue="currentlyReading"
+              />
+              <Shelf 
+                shelfChanger={this.shelfChanger} 
+                books={this.state.books} 
+                shelfHeader="Want to Read" 
+                shelfValue="wantToRead"
+              />
+              <Shelf 
+                shelfChanger={this.shelfChanger} 
+                books={this.state.books} 
+                shelfHeader="Read" 
+                shelfValue="read"
+              />
             </div>  
           </div> 
         )}  
