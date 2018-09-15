@@ -33,12 +33,13 @@ class BooksApp extends Component {
     console.log(this.state) // TESTING - WORKING 
     console.log(book.id) // TESTING - WORKING
     // call API to update the book's shelf (returns a promise)
-    BooksAPI.update(book, shelf) // returns a promise - what is done with this?
-    // call API to get updated books and reset state
-    BooksAPI.getAll().then((books => {
-      this.setState({books})
-      console.log(books) // TESTING
-    }))
+    BooksAPI.update(book, shelf).then( // returns a promise - what is done with this?
+      // call API to get updated books and reset state
+      BooksAPI.getAll().then((books => {
+        this.setState({books})
+        console.log(books) // TESTING
+      }))
+    )
   }
 
 // Display books; pass books array to Shelf component 
