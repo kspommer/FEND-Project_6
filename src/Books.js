@@ -12,7 +12,7 @@ class Books extends Component {
 		return (
 			<div className="book">
 				<div className="book-top">
-					<div key={this.props.title} className="book-cover" style={{ width: 128, height: 193,
+					<div key={this.props.book.id} className="book-cover" style={{ width: 128, height: 193,
 						backgroundImage: this.props.book.imageLinks ?
 		      			`url(${this.props.book.imageLinks.smallThumbnail})`:
 		      			'url("./img/not-available.jpg")'}}>
