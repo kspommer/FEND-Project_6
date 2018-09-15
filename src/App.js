@@ -17,7 +17,7 @@ class BooksApp extends Component {
      */
     books: [],
     showSearchPage: false, 
-    query: ''
+    query: '' // search query
   }
 
   // make call to API on component mount
@@ -43,14 +43,17 @@ class BooksApp extends Component {
     )
   }
 
-  // controlled component
-  // call BooksAPI.search 
-  // filter results based on input form
-  // add Search query function
+  // Search query function - controlled component (lesson 5-3-7) 
+  // when user enters each character in search bar, 
+  // call BooksAPI.search (returns an array)
+  // Note: BooksAPI.search has limited set of search terms
+  // BooksAPI.search method DOES search by title or author
+
   updateQuery = (query) => {
-    const search = BooksAPI.search(query)
-    console.log(search)
-    this.setState({query: query})
+    BooksAPI.search(query).then(searchResults => {
+      console.log(searchResults) // TESTING - REMOVE
+      this.setState({query: query})
+    })
   }
 
 // Display books; pass books array to Shelf component 
@@ -64,14 +67,6 @@ class BooksApp extends Component {
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
               <div className="search-books-input-wrapper">
-                {/*
-                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                  You can find these search terms here:
-                  https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                  However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                  you don't find a specific author or title. Every search is limited by search terms.
-                */}
                 <input 
                   type="text" 
                   placeholder="Search by title or author"
