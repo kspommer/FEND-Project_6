@@ -34,8 +34,9 @@ class Shelf extends Component {
             <h2 className="bookshelf-title">{this.props.shelfHeader}</h2>
               <div className="bookshelf-books">
                 <ol className="books-grid">
-                  {this.props.books && this.props.books.filter(book => (book.shelf === this.props.shelfValue)).map(book => ( 
-                    <li>
+                  {this.props.books && this.props.books.filter(book => 
+                    (book.shelf === this.props.shelfValue)).map(book => ( 
+                    <li key={book.id}>
                       <Books book={book} shelfChanger={this.props.shelfChanger}/>
                     </li>
                   ))} 
