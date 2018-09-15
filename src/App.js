@@ -16,30 +16,41 @@ class BooksApp extends Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     books: [],
-    showSearchPage: false
+    showSearchPage: false, 
+    query: ''
   }
 
   // make call to API on component mount
   componentDidMount() {
     BooksAPI.getAll().then((books => {
       this.setState({books})
-      console.log({books})  // REMOVE - TESTING
     }))
   }
 
   // method to drive shelf changes (from picklist)
   shelfChanger = (book, shelf) => {
     // record the current state
+    console.log("beforestate")
     console.log(this.state) // TESTING - WORKING 
-    console.log(book.id) // TESTING - WORKING
     // call API to update the book's shelf (returns a promise)
-    BooksAPI.update(book, shelf).then( // returns a promise - what is done with this?
+    BooksAPI.update(book, shelf).then( 
       // call API to get updated books and reset state
       BooksAPI.getAll().then((books => {
         this.setState({books})
-        console.log(books) // TESTING
+        console.log("afterstate")
+        console.log(this.state) // TESTING - WORKING 
       }))
     )
+  }
+
+  // controlled component
+  // call BooksAPI.search 
+  // filter results based on input form
+  // add Search query function
+  updateQuery = (query) => {
+    const search = BooksAPI.search(query)
+    console.log(search)
+    this.setState({query: query})
   }
 
 // Display books; pass books array to Shelf component 
@@ -61,7 +72,12 @@ class BooksApp extends Component {
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author"/>
+                <input 
+                  type="text" 
+                  placeholder="Search by title or author"
+                  value={this.state.query}
+                  onChange={(event) => this.updateQuery(event.target.value)}
+                />
               </div>
             </div>
             <div className="search-books-results">
