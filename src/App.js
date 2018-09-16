@@ -6,7 +6,7 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 // import components
 import Shelf from './Shelf'
-import SearchBooks from './SearchBook'
+import Books from './Books'
 
 class BooksApp extends Component {
   state = {
@@ -92,14 +92,15 @@ class BooksApp extends Component {
                   // need to initialize shelf to "none" 
                   result.shelf = "none"
                   console.log(result) // TESTING - REMOVE - OK HERE
+
                   this.state.books.map(book => (
-                    (book.id === result.id) ? 
-                      result.shelf = book.shelf : "none" 
+                    (book.id === result.id) ? result.shelf = book.shelf : "none" 
                   ))
-                  console.log(result.shelf) // TESTING - REMOVE - OK TO HERE NOW!
-                  //<li>
-                    //<Books book={this.result} book.shelf={this.result.shelf} shelfChanger={this.shelfChanger}/>
-                  //</li> 
+                  console.log(result.shelf)
+                  // display the book
+                  <li>
+                    <Books book={result} shelfChanger={this.shelfChanger}/>
+                  </li>
                 })}
               </ol>
             </div>
@@ -113,21 +114,18 @@ class BooksApp extends Component {
               <Shelf 
                 shelfChanger={this.shelfChanger} 
                 books={this.state.books} 
-                bookIds={this.state.shelvedBookIds}
                 shelfHeader="Currently Reading" 
                 shelfValue="currentlyReading"
               />
               <Shelf 
                 shelfChanger={this.shelfChanger} 
                 books={this.state.books} 
-                bookIds={this.state.shelvedBookIds}
                 shelfHeader="Want to Read" 
                 shelfValue="wantToRead"
               />
               <Shelf 
                 shelfChanger={this.shelfChanger} 
                 books={this.state.books} 
-                bookIds={this.state.shelvedBookIds}
                 shelfHeader="Read" 
                 shelfValue="read"
               />
