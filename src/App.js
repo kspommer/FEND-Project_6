@@ -68,9 +68,8 @@ class BooksApp extends Component {
   // method to run search
   runSearch = (query) => {
     BooksAPI.search(query).then(searchResults => {
-      const bookSearch = searchResults
-      this.setState({bookSearch})
-      console.log(bookSearch) // REMOVE - TESTING
+      this.setState({searchResults})
+      console.log(searchResults) // REMOVE - TESTING
     })
   }
 
@@ -89,7 +88,10 @@ class BooksApp extends Component {
                   type="text" 
                   placeholder="Search by title or author"
                   value={this.state.query}
-                  onChange={(event) => this.updateQuery(event.target.value)}
+                  onChange={(event) => 
+                    this.updateQuery(event.target.value), 
+                    this.runSearch(event.target.value)
+                  }
                 />
               </div>
             </div>
@@ -98,10 +100,10 @@ class BooksApp extends Component {
               <ol className="books-grid">
                 this.state.searchResults.map(book => ( 
                   <li>
-                    <Books 
-                      shelfChanger={this.shelfChanger} 
-                      books={this.state.books}
-                      searchResults={this.state.searchResults} 
+                    //<searchBooks
+                      //shelfChanger={this.shelfChanger} 
+                      //books={this.state.books}
+                      //searchResults={this.state.searchResults} 
                     />
                   </li>
                 ))}  
