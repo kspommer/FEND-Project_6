@@ -7,7 +7,7 @@ import './App.css'
 // import components
 import Shelf from './Shelf'
 import Books from './Books'
-
+import SearchBooks from './SearchBook'
 
 class BooksApp extends Component {
   state = {
@@ -88,9 +88,8 @@ class BooksApp extends Component {
                   type="text" 
                   placeholder="Search by title or author"
                   value={this.state.query}
-                  onChange={(event) => 
-                    this.updateQuery(event.target.value), 
-                    this.runSearch(event.target.value)
+                  onChange={(event) => this.updateQuery(event.target.value)
+                  // moved runSearch results use to below
                   }
                 />
               </div>
@@ -98,12 +97,12 @@ class BooksApp extends Component {
 
             <div className="search-books-results">
               <ol className="books-grid">
-                this.state.searchResults.map(book => ( 
+                runSearch({this.state.query})
+                this.state.searchResults.map(searchResult => ( 
                   <li>
-                    //<searchBooks
-                      //shelfChanger={this.shelfChanger} 
-                      //books={this.state.books}
-                      //searchResults={this.state.searchResults} 
+                    <SearchBooks
+                      shelfChanger={this.shelfChanger} 
+                      searchResults={this.state.searchResults} 
                     />
                   </li>
                 ))}  
