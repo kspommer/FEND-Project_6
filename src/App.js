@@ -6,6 +6,8 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 // import components
 import Shelf from './Shelf'
+import Books from './Books'
+
 
 class BooksApp extends Component {
   state = {
@@ -17,44 +19,80 @@ class BooksApp extends Component {
      */
     books: [],
     showSearchPage: false, 
-    query: '' // search query
+    query: '', // search query
+    bookIds: []
   }
 
   // make call to API on component mount
   componentDidMount() {
     BooksAPI.getAll().then((books => {
       this.setState({books})
+      //reset id array
+      const bookIds = [];
+      // map through books array to get ids
+      books.map(book =>
+        bookIds.push(book.id)
+      )
+      this.setState({bookIds})
+      console.log(books) // TESTING - REMOVE
+      console.log(bookIds) // TESTING - REMOVE
     }))
   }
 
+  // could not get this to work as stand alone method called from shelfChanger
+  // capture book.ids from books array 
+  //getBooksIds = (books) => {
+    // reset id array
+    //const bookIds = [];
+    // map through books array to get ids
+    //books.map(book =>
+      //bookIds.push(book.id)
+    //) 
+    //return bookIds   
+  //}
+
   // method to drive shelf changes (from picklist)
   shelfChanger = (book, shelf) => {
-    // record the current state
-    console.log("beforestate")
-    console.log(this.state) // TESTING - WORKING 
     // call API to update the book's shelf (returns a promise)
     BooksAPI.update(book, shelf).then( 
       // call API to get updated books and reset state
       BooksAPI.getAll().then((books => {
         this.setState({books})
-        console.log("afterstate")
-        console.log(this.state) // TESTING - WORKING 
+        //reset id array
+        const bookIds = [];
+        // map through books array to get ids
+        books.map(book =>
+          bookIds.push(book.id)
+        ) 
+        this.setState({bookIds})
+        
+        console.log(bookIds)  // TESTING - REMOVE 
+        console.log("afterstate") // TESTING - REMOVE 
+        console.log(this.state) // TESTING - REMOVE
       }))
     )
   }
-
   // Search query function - controlled component (lesson 5-3-7) 
   // when user enters each character in search bar, 
   // call BooksAPI.search (returns an array)
   // Note: BooksAPI.search has limited set of search terms
   // BooksAPI.search method DOES search by title or author
-
   updateQuery = (query) => {
     BooksAPI.search(query).then(searchResults => {
       console.log(searchResults) // TESTING - REMOVE
       this.setState({query: query})
     })
   }
+
+
+  // Filter Query results again existing book ids
+  //filterQuery = (query, books) => {
+    //uniqueSearchResults = this.query.filter(book => 
+      //(query.book.id !== this.props.books.map(book =>
+      
+      //))
+    //)
+  //}    
 
 // Display books; pass books array to Shelf component 
 // Shelf components calls Book component to display book
@@ -76,7 +114,8 @@ class BooksApp extends Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
+              <ol className="books-grid">
+              </ol>  
             </div>
           </div>
         ) : (
