@@ -6,7 +6,6 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 // import components
 import Shelf from './Shelf'
-import Books from './Books'
 import SearchBooks from './SearchBook'
 
 class BooksApp extends Component {
@@ -62,7 +61,9 @@ class BooksApp extends Component {
   // BooksAPI.search method DOES search by title or author
   updateQuery = (query) => {
     this.setState({query})
-    console.log(query)
+    console.log(query) // REMOVE - TESTING
+    // call the query method (NOTE: need this. !!)
+    this.runSearch(query)
   }  
 
   // method to run search
@@ -89,25 +90,14 @@ class BooksApp extends Component {
                   placeholder="Search by title or author"
                   value={this.state.query}
                   onChange={(event) => this.updateQuery(event.target.value)
-                  // moved runSearch results use to below
                   }
                 />
               </div>
             </div>
-
             <div className="search-books-results">
-              <ol className="books-grid">
-                runSearch({this.state.query})
-                this.state.searchResults.map(searchResult => ( 
-                  <li>
-                    <SearchBooks
-                      shelfChanger={this.shelfChanger} 
-                      searchResults={this.state.searchResults} 
-                    />
-                  </li>
-                ))}  
-              </ol>*/} 
+              <ol className="books-grid"></ol>
 
+          
             </div>
           </div>
         ) : (
