@@ -89,14 +89,17 @@ class BooksApp extends Component {
                   // compare result.id against each current book.if
                   // if a match, change the result.shelf = book.shelf
                   // if no match, set to "none"
-                  {this.state.books.map(book => {
+                  // need to initialize shelf to "none" 
+                  result.shelf = "none"
+                  console.log(result) // TESTING - REMOVE - OK HERE
+                  this.state.books.map(book => (
                     (book.id === result.id) ? 
-                      result.shelf = book.shelf : "none"
-                      console.log(result) 
-                    //<li>
-                      //<Books book={this.result} book.shelf={this.result.shelf} shelfChanger={this.shelfChanger}/>
-                    //</li>
-                  })}
+                      result.shelf = book.shelf : "none" 
+                  ))
+                  console.log(result.shelf) // TESTING - REMOVE - OK TO HERE NOW!
+                  //<li>
+                    //<Books book={this.result} book.shelf={this.result.shelf} shelfChanger={this.shelfChanger}/>
+                  //</li> 
                 })}
               </ol>
             </div>
