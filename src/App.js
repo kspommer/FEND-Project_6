@@ -30,19 +30,6 @@ class BooksApp extends Component {
     }))
   }
 
-  // NOTE:  Could not get this to work as stand alone method 
-  // that I could call from shelfChanger -- ??
-  // capture book.ids from books array 
-  //getBooksIds = (books) => {
-    // reset id array
-    //const bookIds = [];
-    // map through books array to get ids
-    //books.map(book =>
-      //bookIds.push(book.id)
-    //) 
-    //return bookIds   
-  //}
-
   // method to drive shelf changes (from picklist)
   shelfChanger = (book, shelf) => {
     // call API to update the book's shelf (returns a promise)
@@ -58,7 +45,7 @@ class BooksApp extends Component {
   // when user enters each character in search bar, 
   // call BooksAPI.search (returns an array)
   // Note: BooksAPI.search has limited set of search terms
-  // BooksAPI.search method DOES search by title or author
+  // BooksAPI.search method searches for matches in title or author
   updateQuery = (query) => {
     this.setState({query})
     console.log(query) // REMOVE - TESTING
@@ -74,8 +61,10 @@ class BooksApp extends Component {
     })
   }
 
-// Display books; pass books array to Shelf component 
+// Display books
+// On main page, pass books array to Shelf component, then
 // Shelf components calls Book component to display book
+// On Search page, pass searchResults array to SearchBooks
   render() {
     return (
       <div className="app">
@@ -89,15 +78,27 @@ class BooksApp extends Component {
                   type="text" 
                   placeholder="Search by title or author"
                   value={this.state.query}
-                  onChange={(event) => this.updateQuery(event.target.value)
-                  }
+                  onChange={(event) => this.updateQuery(event.target.value)}
                 />
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid"></ol>
-
-          
+              <ol className="books-grid">
+                // map through each search result
+                {this.state.searchResults.map(result => {
+                  // compare result.id against each current book.if
+                  // if a match, change the result.shelf = book.shelf
+                  // if no match, set to "none"
+                  {this.state.books.map(book => {
+                    (book.id === result.id) ? 
+                      result.shelf = book.shelf : "none"
+                      console.log(result) 
+                    //<li>
+                      //<Books book={this.result} book.shelf={this.result.shelf} shelfChanger={this.shelfChanger}/>
+                    //</li>
+                  })}
+                })}
+              </ol>
             </div>
           </div>
         ) : (
