@@ -19,27 +19,20 @@ class BooksApp extends Component {
      */
     books: [],
     showSearchPage: false, 
-    query: '', // search query
-    bookIds: []
+    query: [], // search query
+    searchResults: [] // results of API call
   }
 
   // make call to API on component mount
   componentDidMount() {
     BooksAPI.getAll().then((books => {
       this.setState({books})
-      //reset id array
-      const bookIds = [];
-      // map through books array to get ids
-      books.map(book =>
-        bookIds.push(book.id)
-      )
-      this.setState({bookIds})
       console.log(books) // TESTING - REMOVE
-      console.log(bookIds) // TESTING - REMOVE
     }))
   }
 
-  // could not get this to work as stand alone method called from shelfChanger
+  // NOTE:  Could not get this to work as stand alone method 
+  // that I could call from shelfChanger -- ??
   // capture book.ids from books array 
   //getBooksIds = (books) => {
     // reset id array
@@ -58,17 +51,7 @@ class BooksApp extends Component {
       // call API to get updated books and reset state
       BooksAPI.getAll().then((books => {
         this.setState({books})
-        //reset id array
-        const bookIds = [];
-        // map through books array to get ids
-        books.map(book =>
-          bookIds.push(book.id)
-        ) 
-        this.setState({bookIds})
-        
-        console.log(bookIds)  // TESTING - REMOVE 
-        console.log("afterstate") // TESTING - REMOVE 
-        console.log(this.state) // TESTING - REMOVE
+        console.log(this.state.books) // TESTING - REMOVE
       }))
     )
   }
@@ -78,21 +61,18 @@ class BooksApp extends Component {
   // Note: BooksAPI.search has limited set of search terms
   // BooksAPI.search method DOES search by title or author
   updateQuery = (query) => {
+    this.setState({query})
+    console.log(query)
+  }  
+
+  // method to run search
+  runSearch = (query) => {
     BooksAPI.search(query).then(searchResults => {
-      console.log(searchResults) // TESTING - REMOVE
-      this.setState({query: query})
+      const bookSearch = searchResults
+      this.setState({bookSearch})
+      console.log(bookSearch) // REMOVE - TESTING
     })
   }
-
-
-  // Filter Query results again existing book ids
-  //filterQuery = (query, books) => {
-    //uniqueSearchResults = this.query.filter(book => 
-      //(query.book.id !== this.props.books.map(book =>
-      
-      //))
-    //)
-  //}    
 
 // Display books; pass books array to Shelf component 
 // Shelf components calls Book component to display book
@@ -113,9 +93,20 @@ class BooksApp extends Component {
                 />
               </div>
             </div>
+
             <div className="search-books-results">
               <ol className="books-grid">
-              </ol>  
+                this.state.searchResults.map(book => ( 
+                  <li>
+                    <Books 
+                      shelfChanger={this.shelfChanger} 
+                      books={this.state.books}
+                      searchResults={this.state.searchResults} 
+                    />
+                  </li>
+                ))}  
+              </ol>*/} 
+
             </div>
           </div>
         ) : (
@@ -127,18 +118,21 @@ class BooksApp extends Component {
               <Shelf 
                 shelfChanger={this.shelfChanger} 
                 books={this.state.books} 
+                bookIds={this.state.shelvedBookIds}
                 shelfHeader="Currently Reading" 
                 shelfValue="currentlyReading"
               />
               <Shelf 
                 shelfChanger={this.shelfChanger} 
                 books={this.state.books} 
+                bookIds={this.state.shelvedBookIds}
                 shelfHeader="Want to Read" 
                 shelfValue="wantToRead"
               />
               <Shelf 
                 shelfChanger={this.shelfChanger} 
                 books={this.state.books} 
+                bookIds={this.state.shelvedBookIds}
                 shelfHeader="Read" 
                 shelfValue="read"
               />
