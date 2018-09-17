@@ -5,33 +5,40 @@ import React, {Component} from 'react'
 
 // method to update books
 // Book component  - displays thumbnail image, title, authors(NEED WORK), picklist
-class SearchBooks extends Component {
+class SearchBook extends Component {
 
-	// render each book and display certain fields (cover image, title, author)
-	render() {
-		return (
-			<div className="book">
-				<div className="book-top">
-					<div key={this.props.searchResults.id} className="book-cover" style={{ width: 128, height: 193,
-						backgroundImage: this.props.searchResult.imageLinks ?
-		      			`url(${this.props.searchResults.imageLinks.smallThumbnail})`:
-		      			'url("./img/not-available.jpg")'}}>
-		      		</div>						
-		            <div className="book-shelf-changer">
-		              <select onChange={(event) => this.props.shelfChanger(this.props.searchResult, event.target.value)} value={this.props.searchResult.shelf}>
-		                <option value="move" disabled>Move to...</option>
-		                <option value="currentlyReading">Currently Reading</option>
-		                <option value="wantToRead">Want to Read</option>
-		                <option value="read">Read</option>
-		                <option value="none">None</option>
-		              </select>
-		            </div>
-		    	</div>
-		    	<div className="book-title">{this.props.searchResult.title}</div>
-		    	<div className="book-authors">{this.props.searchResult.authors}</div>	
-			</div>
-		)
+	// method to check if search results are already on a shelf
+    checkShelf = (searchResults, books) => {
+    	searchResults.map(result =>
+	    	// compare result.id against each current book.if
+	      	// if a match, change the result.shelf = book.shelf
+	      	// if no match, set to "none"
+	      	// need to initialize shelf to "none" 
+	      	result.shelf = "none"
+
+	      	this.books.map(book => (
+	        	(book.id === result.id) ? result.shelf = book.shelf : "none" 
+	      	))
+	      	console.log(result.shelf)
+	      	this.setState({books}) // TESTING - REMOVE - OK HERE
+	    )
 	}
-}     			
+ 
+	render() {
+		checkShelf(this.props.searchResults, this.props.books)
 
-export default SearchBooks
+		return (          
+			<div className="search-books-results">
+              	<ol className="books-grid">	
+                  <li>
+                    <Books book={result} shelfChanger={this.shelfChanger}/>
+                  </li>
+                })}
+              </ol>
+            </div>
+        )
+    } 
+}
+
+
+export default SearchBook
