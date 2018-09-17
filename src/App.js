@@ -41,7 +41,7 @@ class BooksApp extends Component {
       console.log(this.state.books) // TESTING 
   }
 
-  // Susan's original function
+  // Susan's original shelfChanger function
     //BooksAPI.update(book, shelf).then ( 
       // call API to get updated books and reset state
       //BooksAPI.getAll().then((books => {
@@ -93,19 +93,21 @@ class BooksApp extends Component {
             <div className="search-books-results">
               <ol className="books-grid">
                 {this.state.searchResults.map(result => {
-                  // compare result.id against each current book.if
+
+                  // compare result.id against book.id
                   // if a match, change the result.shelf = book.shelf
                   // if no match, set to "none"
                   // need to initialize shelf to "none" 
                   result.shelf = "none"
-                  console.log(result) // TESTING - REMOVE - OK HERE
-
+                  console.log(result) // TESTING 
+                
+                  // check to see if results already has a shelf assigned, if not, assign default
                   this.state.books.map(book => (
                     book.id === result.id ? result.shelf = book.shelf : "none"     
-                    // display the book - copied from Shelf.js
                   ))
+                  // display the book - copied from Shelf.js
                   return (
-                    <li key={result.id}>
+                    <li key={result.id}>  
                       <Books book={result} shelfChanger={this.shelfChanger}/>
                     </li>)
                 })}
