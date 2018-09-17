@@ -33,14 +33,23 @@ class BooksApp extends Component {
   // method to drive shelf changes (from picklist)
   shelfChanger = (book, shelf) => {
     // call API to update the book's shelf (returns a promise)
-    BooksAPI.update(book, shelf).then ( 
-      // call API to get updated books and reset state
-      BooksAPI.getAll().then((books => {
-        this.setState({books})
-        console.log(this.state.books) // TESTING - REMOVE
-      }))
-    )
+    // once update, then need to get books and reset state
+    BooksAPI.update(book, shelf)
+      .then(() => BooksAPI.getAll())
+      .then(books => this.setState({books}))
+      .catch(error => console.log(error))
+      console.log(this.state.books) // TESTING 
   }
+
+  // Susan's original function
+    //BooksAPI.update(book, shelf).then ( 
+      // call API to get updated books and reset state
+      //BooksAPI.getAll().then((books => {
+        //this.setState({books})
+        // console.log(this.state.books) // TESTING - REMOVE
+      //}))
+    //)
+  
   // Search query function - controlled component (lesson 5-3-7) 
   // when user enters each character in search bar, 
   // call BooksAPI.search (returns an array)
