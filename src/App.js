@@ -83,7 +83,6 @@ class BooksApp extends Component {
             </div>
             <div className="search-books-results">
               <ol className="books-grid">
-                // map through each search result
                 {this.state.searchResults.map(result => {
                   // compare result.id against each current book.if
                   // if a match, change the result.shelf = book.shelf
@@ -99,7 +98,7 @@ class BooksApp extends Component {
                   return (
                     <li key={result.id}>
                       <Books book={result} shelfChanger={this.shelfChanger}/>
-                    </li>
+                    </li>)
                 })}
               </ol>
             </div>  
