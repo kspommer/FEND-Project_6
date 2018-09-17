@@ -33,7 +33,7 @@ class BooksApp extends Component {
   // method to drive shelf changes (from picklist)
   shelfChanger = (book, shelf) => {
     // call API to update the book's shelf (returns a promise)
-    BooksAPI.update(book, shelf).then( 
+    BooksAPI.update(book, shelf).then ( 
       // call API to get updated books and reset state
       BooksAPI.getAll().then((books => {
         this.setState({books})
@@ -68,8 +68,7 @@ class BooksApp extends Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage
-         ? (
+        {this.state.showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
@@ -94,17 +93,17 @@ class BooksApp extends Component {
                   console.log(result) // TESTING - REMOVE - OK HERE
 
                   this.state.books.map(book => (
-                    (book.id === result.id) ? result.shelf = book.shelf : "none" 
+                    book.id === result.id ? result.shelf = book.shelf : "none"     
+                    // display the book - copied from Shelf.js
                   ))
-                  console.log(result.shelf)
-                  // display the book
-                  <li>
-                    <Books book={result} shelfChanger={this.shelfChanger}/>
-                  </li>
+                  return (
+                    <li key={result.id}>
+                      <Books book={result} shelfChanger={this.shelfChanger}/>
+                    </li>
                 })}
               </ol>
-            </div>
-          </div>
+            </div>  
+          </div>  
         ) : (
           <div className="list-books">
             <div className="list-books-title">
@@ -129,14 +128,13 @@ class BooksApp extends Component {
                 shelfHeader="Read" 
                 shelfValue="read"
               />
-            </div>  
-          </div> 
-        )}  
-        <div>
-          <div className="open-search">
-            <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-          </div>
-        </div>
+            </div>   
+          
+            <div className="open-search">
+              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+            </div>
+          </div>  
+        )}      
       </div>  
     )
   }
