@@ -36,7 +36,7 @@ class Books extends Component {
 
 export default Books
 
-//<div className="book-authors">{this.props.book.authors}</div>	
+// Attempt 1 on addressing multiple authors
 //{const numberOfAuthors= this.props.books.authors.length 
 //console.log(numberOfAuthors) // TESTING 
 	//if (numberOfAuthors === 1) { 
