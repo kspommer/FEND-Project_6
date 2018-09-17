@@ -1,5 +1,7 @@
 // import React libraru
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 // import API
 import * as BooksAPI from './BooksAPI'
 // import style sheet
@@ -10,14 +12,8 @@ import Books from './Books'
 
 class BooksApp extends Component {
   state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
     books: [],
-    showSearchPage: false, 
+    //showSearchPage: false,
     query: [], // search query
     searchResults: [] // results of API call
   }
@@ -41,15 +37,6 @@ class BooksApp extends Component {
       console.log(this.state.books) // TESTING 
   }
 
-  // Susan's original shelfChanger function
-    //BooksAPI.update(book, shelf).then ( 
-      // call API to get updated books and reset state
-      //BooksAPI.getAll().then((books => {
-        //this.setState({books})
-        // console.log(this.state.books) // TESTING - REMOVE
-      //}))
-    //)
-  
   // Search query function - controlled component (lesson 5-3-7) 
   // when user enters each character in search bar, 
   // call BooksAPI.search (returns an array)
@@ -60,7 +47,7 @@ class BooksApp extends Component {
     console.log(query) // REMOVE - TESTING
     // call the query method (NOTE: need this. !!)
     this.runSearch(query)
-  }  
+  }
 
   // method to run search
   runSearch = (query) => {
@@ -76,78 +63,77 @@ class BooksApp extends Component {
 // On Search page, pass searchResults array to SearchBooks
   render() {
     return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <div className="search-books">
-            <div className="search-books-bar">
-              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
-              <div className="search-books-input-wrapper">
-                <input 
-                  type="text" 
-                  placeholder="Search by title or author"
-                  value={this.state.query}
-                  onChange={(event) => this.updateQuery(event.target.value)}
-                />
+        <div className="app">
+          <Route path="/search" render={() => (
+            <div className="search-books">
+              <div className="search-books-bar">
+                //<a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+                <div className="search-books-input-wrapper">
+                  <input
+                    type="text"
+                    placeholder="Search by title or author"
+                    value={this.state.query}
+                    onChange={(event) => this.updateQuery(event.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="search-books-results">
+                <ol className="books-grid">
+                  {this.state.searchResults.map(result => {
+                    // compare result.id against book.id
+                    // if a match, change the result.shelf = book.shelf
+                    // if no match, set to "none"
+                    // need to initialize shelf to "none"
+                    result.shelf = "none"
+                    console.log(result) // TESTING
+                    // check to see if results already has a shelf assigned, if not, assign default
+                    this.state.books.map(book => (
+                      book.id === result.id ? result.shelf = book.shelf : "none"
+                    ))
+                    // display the book - copied from Shelf.js
+                    return (
+                      <li key={result.id}>
+                        <Books book={result} shelfChanger={this.shelfChanger}/>
+                      </li>
+                    )
+                  })}
+                </ol>
               </div>
             </div>
-            <div className="search-books-results">
-              <ol className="books-grid">
-                {this.state.searchResults.map(result => {
-
-                  // compare result.id against book.id
-                  // if a match, change the result.shelf = book.shelf
-                  // if no match, set to "none"
-                  // need to initialize shelf to "none" 
-                  result.shelf = "none"
-                  console.log(result) // TESTING 
-                
-                  // check to see if results already has a shelf assigned, if not, assign default
-                  this.state.books.map(book => (
-                    book.id === result.id ? result.shelf = book.shelf : "none"     
-                  ))
-                  // display the book - copied from Shelf.js
-                  return (
-                    <li key={result.id}>  
-                      <Books book={result} shelfChanger={this.shelfChanger}/>
-                    </li>)
-                })}
-              </ol>
+          )}/>
+          <Route exact path="/" render={() => (
+            <div className="list-books">
+              <div className="list-books-title">
+                <h1>MyReads</h1>
+              </div>
+              <div className="list-books-content">
+                <Shelf
+                  shelfChanger={this.shelfChanger}
+                  books={this.state.books}
+                  shelfHeader="Currently Reading"
+                  shelfValue="currentlyReading"
+                />
+                <Shelf
+                  shelfChanger={this.shelfChanger}
+                  books={this.state.books}
+                  shelfHeader="Want to Read"
+                  shelfValue="wantToRead"
+                />
+                <Shelf
+                  shelfChanger={this.shelfChanger}
+                  books={this.state.books}
+                  shelfHeader="Read"
+                  shelfValue="read"
+                />
+              </div>
+              <div className="open-search">
+                <Link to="search">Add a book</Link>
+              </div>
             </div>  
-          </div>  
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div> 
-            <div className="list-books-content">
-              <Shelf 
-                shelfChanger={this.shelfChanger} 
-                books={this.state.books} 
-                shelfHeader="Currently Reading" 
-                shelfValue="currentlyReading"
-              />
-              <Shelf 
-                shelfChanger={this.shelfChanger} 
-                books={this.state.books} 
-                shelfHeader="Want to Read" 
-                shelfValue="wantToRead"
-              />
-              <Shelf 
-                shelfChanger={this.shelfChanger} 
-                books={this.state.books} 
-                shelfHeader="Read" 
-                shelfValue="read"
-              />
-            </div>   
-          
-            <div className="open-search">
-              <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div>
-          </div>  
-        )}      
-      </div>  
+          )}/>
+        </div>
     )
   }
-}
+}  
 
 export default BooksApp
