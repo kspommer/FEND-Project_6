@@ -13,7 +13,7 @@ import Books from './Books'
 class BooksApp extends Component {
   state = {
     books: [],
-    //showSearchPage: false,
+    //showSearchPage: false
     query: [], // search query
     searchResults: [] // results of API call
   }
@@ -22,7 +22,7 @@ class BooksApp extends Component {
   componentDidMount() {
     BooksAPI.getAll().then((books => {
       this.setState({books})
-      console.log(books) // TESTING - REMOVE
+      //console.log(books) // TESTING - REMOVE
     }))
   }
 
@@ -34,7 +34,7 @@ class BooksApp extends Component {
       .then(() => BooksAPI.getAll())
       .then(books => this.setState({books}))
       .catch(error => console.log(error))
-      console.log(this.state.books) // TESTING 
+      //console.log(this.state.books) // TESTING 
   }
 
   // Search query function - controlled component (lesson 5-3-7) 
@@ -44,7 +44,7 @@ class BooksApp extends Component {
   // BooksAPI.search method searches for matches in title or author
   updateQuery = (query) => {
     this.setState({query})
-    console.log(query) // REMOVE - TESTING
+    //console.log(query) // REMOVE - TESTING
     // call the query method (NOTE: need this. !!)
     this.runSearch(query)
   }
@@ -55,15 +55,15 @@ class BooksApp extends Component {
   runSearch = (query) => {
     if (query) {
       BooksAPI.search(query).then(searchResults => {
-        console.log(searchResults)
+        //console.log(searchResults)
         if (searchResults.error) {
           searchResults = []
           this.setState({searchResults})
-          console.log("No matches found")
+          //console.log("No matches found")
         }
         else {
           this.setState({searchResults})
-          console.log(searchResults) // REMOVE - TESTING
+          //console.log(searchResults) // REMOVE - TESTING
         }
       })
     }
