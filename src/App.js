@@ -50,11 +50,23 @@ class BooksApp extends Component {
   }
 
   // method to run search
+  // add error handling for nothing entered in search bar
+  // add error handing for no search results found 
   runSearch = (query) => {
-    BooksAPI.search(query).then(searchResults => {
-      this.setState({searchResults})
-      console.log(searchResults) // REMOVE - TESTING
-    })
+    if (query) {
+      BooksAPI.search(query).then(searchResults => {
+        console.log(searchResults)
+        if (searchResults.error) {
+          searchResults = []
+          this.setState({searchResults})
+          console.log("No matches found")
+        }
+        else {
+          this.setState({searchResults})
+          console.log(searchResults) // REMOVE - TESTING
+        }
+      })
+    }
   }
 
 // Display books
@@ -67,7 +79,6 @@ class BooksApp extends Component {
           <Route path="/search" render={() => (
             <div className="search-books">
               <div className="search-books-bar">
-                //<a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
                 <div className="search-books-input-wrapper">
                   <input
                     type="text"
