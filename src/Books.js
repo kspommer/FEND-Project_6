@@ -1,14 +1,17 @@
-// Display book image, title, author to page
-
+// Display book image, title, author and picklist to page
 // import React 
 import React, {Component} from 'react'
 
-// method to update books
-// Book component  - displays thumbnail image, title, authors(NEED WORK), picklist
+
 class Books extends Component {
 
 	// render each book and display certain fields (cover image, title, author)
 	render() {
+
+		// note some books have more than one author
+		// check for more than one author and add comma/space between
+		const authorsPrintOut = this.props.book.authors ? this.props.book.authors.join(", ") : ""
+
 		return (
 			<div className="book">
 				<div className="book-top">
@@ -28,19 +31,10 @@ class Books extends Component {
 		            </div>
 		    	</div>
 		    	<div className="book-title">{this.props.book.title}</div>	
-				<div className="book-authors">{this.props.book.authors}</div>		
+				<div className="book-authors">{authorsPrintOut}</div>		
 			</div>
 		)
 	}
 }     			
 
 export default Books
-
-// Attempt 1 on addressing multiple authors
-//{const numberOfAuthors= this.props.books.authors.length 
-//console.log(numberOfAuthors) // TESTING 
-	//if (numberOfAuthors === 1) { 
-//}
-		//return (
-		//<div className="book-authors">{this.props.book.authors}</div>)
-	//}
